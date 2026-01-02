@@ -18,7 +18,7 @@ async def task_proccessing(task_id: str):
         await asyncio.sleep(2)
         task[task_id]["status"] = "done"
     except Exception:
-        task[task_id]["status"] = "failed"
+        task[task_id]["status"] = "failed" 
 
 @app.post("/task/")
 async def task_making(task_data: str):
