@@ -1,0 +1,90 @@
+pipeline {
+    agent any
+
+    environment {
+        PYTHON_VERSION ="3.14"
+        VIRTUAL_ENV ="venv"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checkout..'
+                checkout scm
+                
+            }
+        }
+
+
+        stage('Setup env') {
+            steps {
+                sh '''
+                echo 'Setup..'
+                python{PYTHON_VERSION} -m venv {VIRTUAL_ENV}
+                source {VIRTUAL_ENV}/bin/activate
+                python -m pip install --upgrade pip
+                '''
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                sh '''
+                echo 'Installing..'
+                pip install -r requirements.txt 
+                pip install pytest
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh '''
+                echo 'Testing..'
+                export PYTHONPATH=$PWD
+                pytest -v
+                '''
+            }
+        }
+
+
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                'docker build . -t localtest'
+            }
+        }
+
+        stage('Smoke Test') {
+            steps {
+                sh '''
+                echo 'Testing..'
+                docker logs localtest
+                curl -f http://localhost:8000/health
+                '''
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                sh '''
+                echo 'Cleanup..'
+                docker stop localtest
+                docker rm localtest
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+
+        post {
+            always {
+            cleanWs()
+            }
+        }
+    }
+}
