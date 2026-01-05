@@ -3,11 +3,15 @@ pipeline {
 
     environment {
         PYTHON_VERSION ="3.14"
-        VIRTUAL_ENV ="venv"
+        VIRTUAL_ENV ="env"
+        DOCKER_HUB = credentials('docker-hub-creds')
+        DOCKER_USERNAME="kris200036"
+        DOCKERHUB_REPO="project_2"
+
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone') {
             steps {
                 echo 'Checkout..'
                 checkout scm
@@ -16,13 +20,12 @@ pipeline {
         }
 
 
-        stage('Setup env') {
+        stage('Setup Env') {
             steps {
                 sh '''
                 echo 'Setup..'
-                python{PYTHON_VERSION} -m venv {VIRTUAL_ENV}
-                source {VIRTUAL_ENV}/bin/activate
-                python -m pip install --upgrade pip
+                python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
+                source ${VIRTUAL_ENV}/bin/activate
                 '''
             }
         }
@@ -31,6 +34,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Installing..'
+                python -m pip install --upgrade pip
                 pip install -r requirements.txt 
                 pip install pytest
                 '''
@@ -51,7 +55,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                'docker build . -t localtest'
+                'docker build . -t localtest:test'
             }
         }
 
@@ -59,6 +63,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Testing..'
+                docker run -d -name localtest -p 8000:8000 localtest:test
                 docker logs localtest
                 curl -f http://localhost:8000/health
                 '''
@@ -75,15 +80,77 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage(){
+            environment{
+                DOCKER_HUB = credentials('docker-hub-creds')
+            }
             steps {
-                echo 'Deploying....'
+                echo 'Login....'
+                sh '''
+                    echo ${DOCKER_HUB_PSW} | docker login -u ${DOCKER_HUB_USR} --password-stdin
+                '''
             }
         }
 
+        stage('Push') {
+            steps {
+                echo 'Deploying....'
+                sh '''
+                docker build . -t ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
+                docker push ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
+                '''
+            }
+        }
+
+         stage('Build') {
+            steps {
+                echo 'Build....'
+                sh '''
+                kind create cluster
+                docker pull ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
+                kind load docker-image ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
+                '''
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo 'Deploy...'
+                sh'''
+                helm upgrade --install track chart/ \
+                --set image.repository=${{DOCKER_USERNAME}}/${DOCKERHUB_REPO} \
+                --set image.tag:latest
+                '''
+            }
+        }
+        stage('Debug') {
+            steps{
+                echo 'Debug...'
+                sh'''
+                sleep 5
+                kubectl get deployment track-processing
+                kubectl get service track-processing
+                '''
+            }
+        }
+        stage('Test') {
+            steps{
+                echo 'Tesing...'
+                sh'''
+                kubectl port-forward svc/track-processing 8000:80 & PORT_FORWARD_PID=$!
+                sleep 10
+                curl -f http://localhost:8000/health
+                kill $PORT_FORWARD_PID
+                '''
+            }
+        }
+
+
         post {
             always {
-            cleanWs()
+                cleanWs()
+            sh '''
+                docker logout
+            '''
             }
         }
     }
