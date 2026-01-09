@@ -1,4 +1,4 @@
-from sqlmodel import Field, SQLModel, select, all, exec
+from sqlmodel import Field, SQLModel, select
 
 class TaskBase(SQLModel):
     task_data: str

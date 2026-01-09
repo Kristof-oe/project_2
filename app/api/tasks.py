@@ -72,14 +72,14 @@ async def del_task(task_id: int, session: SessionType):
 
 
 @router.get("/")
-async def read_task_all(session = SessionType) -> list[TaskResponse]:
+async def read_task_all(session: SessionType) -> list[TaskResponse]:
 
     tasks=session.exec(select(Tasks)).all()
 
     for task in tasks:
-        
+
         return TaskResponse(
         task_id=task.task_id,
-        task_data=task.stask_data,
+        task_data=task.task_data,
         status=task.status
     )

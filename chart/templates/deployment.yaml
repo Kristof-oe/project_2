@@ -17,3 +17,26 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: {{ .Values.service.targetport }}
+        env:
+          - name: POSTGRES_HOST
+            value: track-processing-postgresql
+
+          - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: postgresql-database
+
+          - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: user
+                  key: postgresql-username
+
+           - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: password
+                  key: postgresql-password
+
+            

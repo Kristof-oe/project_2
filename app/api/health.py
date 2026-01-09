@@ -8,5 +8,5 @@ router = APIRouter(
 @router.get("")
 def health():
     return {"status": "ok",
-            "app": "task-processor",
-            "version": "0.1.0" }
+            "app": "task-processor"
+             }
