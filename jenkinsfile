@@ -106,7 +106,6 @@ pipeline {
             steps {
                 echo 'Build....'
                 sh '''
-                kind create cluster
                 docker pull ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
                 kind load docker-image ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
                 '''
@@ -116,11 +115,27 @@ pipeline {
             steps{
                 echo 'Deploy...'
                 sh'''
-                helm upgrade --install track chart/ \
+                helm upgrade --install track-processing chart/ \
                 --set image.repository=${{DOCKER_USERNAME}}/${DOCKERHUB_REPO} \
                 --set image.tag:latest
                 '''
             }
+        }
+        stage('Monitor'){
+            steps{
+                echo 'Monitor...'
+                sh'''
+                    chmod +x prometheus.sh
+                '''
+            }
+        }
+        stage("Argoset"){
+            steps(
+                echo "ArgoCD..."
+                sh'''
+                    chmod +x argo.sh
+                '''
+            )
         }
         stage('Debug') {
             steps{
