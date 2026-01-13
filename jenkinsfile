@@ -129,14 +129,6 @@ pipeline {
                 '''
             }
         }
-        stage("Argoset"){
-            steps(
-                echo "ArgoCD..."
-                sh'''
-                    chmod +x argo.sh
-                '''
-            )
-        }
         stage('Debug') {
             steps{
                 echo 'Debug...'
