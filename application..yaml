@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Kristof-oe/project_2
     targetRevision: HEAD
-    path: argocd
+    path: main
   destination:
     server: https://kubernetes.deafult.svc
     namespace: myapp
@@ -20,3 +20,4 @@ spec:
 
     automated:
       selfHeal: true
+      prune: true
