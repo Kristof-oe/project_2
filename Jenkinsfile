@@ -20,7 +20,7 @@ pipeline {
         }
 
 
-        stage('Setup Env') {
+        stage('Setup_Env') {
             steps {
                 sh '''
                 echo 'Setup..'
@@ -30,7 +30,7 @@ pipeline {
             }
         }
 
-        stage('Install dependencies') {
+        stage('Install_Dependencies') {
             steps {
                 sh '''
                 echo 'Installing..'
@@ -41,7 +41,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Test_Unit') {
             steps {
                 sh '''
                 echo 'Testing..'
@@ -52,7 +52,7 @@ pipeline {
         }
 
 
-        stage('Build_local') {
+        stage('Build_Local') {
             steps {
                 echo 'Building..'
                 sh '''
@@ -61,7 +61,7 @@ pipeline {
             }
         }
 
-        stage('Smoke_test') {
+        stage('Smoke_Test_Local') {
             steps {
                 sh '''
                 echo 'Testing..'
@@ -82,7 +82,7 @@ pipeline {
             }
         }
 
-        stage('Login Docker'){
+        stage('Login_Docker'){
             environment{
                 DOCKER_HUB = credentials('docker-hub-creds')
             }
@@ -118,8 +118,8 @@ pipeline {
                 echo 'Deploy...'
                 sh'''
                 helm upgrade --install track-processing chart/ \
-                --set image.repository=${{DOCKER_USERNAME}}/${DOCKERHUB_REPO} \
-                --set image.tag:latest
+                --set image.repository=${DOCKER_USERNAME}/${DOCKERHUB_REPO} \
+                --set image.tag=latest
                 '''
             }
         }
@@ -141,7 +141,7 @@ pipeline {
                 '''
             }
         }
-        stage('Test') {
+        stage('Test_Helm') {
             steps{
                 echo 'Tesing...'
                 sh'''
@@ -152,14 +152,14 @@ pipeline {
                 '''
             }
         }
+     
+    }
 
-
-        post {
+    post {
             always {
             sh '''
                 docker logout
             '''
             }
         }
-    }
 }
