@@ -52,7 +52,7 @@ pipeline {
         }
 
 
-        stage('Build') {
+        stage('Build_local') {
             steps {
                 echo 'Building..'
                 sh '''
@@ -61,7 +61,7 @@ pipeline {
             }
         }
 
-        stage('Smoke_Test') {
+        stage('Smoke_test') {
             steps {
                 sh '''
                 echo 'Testing..'
@@ -156,7 +156,6 @@ pipeline {
 
         post {
             always {
-                cleanWs()
             sh '''
                 docker logout
             '''
