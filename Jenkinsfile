@@ -55,11 +55,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                'docker build . -t localtest:test'
+                sh '''
+                docker build . -t localtest:test
+                '''
             }
         }
 
-        stage('Smoke Test') {
+        stage('Smoke_Test') {
             steps {
                 sh '''
                 echo 'Testing..'
@@ -80,7 +82,7 @@ pipeline {
             }
         }
 
-        stage(){
+        stage('Login Docker'){
             environment{
                 DOCKER_HUB = credentials('docker-hub-creds')
             }
