@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PYTHON_VERSION ="3.10"
+        PYTHON_VERSION ="3"
         VIRTUAL_ENV ="env"
         DOCKER_USERNAME="kris200036"
         DOCKERHUB_REPO="project_2"
@@ -23,8 +23,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Setup..'
-                python --version
-                python -m venv ${VIRTUAL_ENV}
+                python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
                 source ${VIRTUAL_ENV}/bin/activate
                 '''
             }
