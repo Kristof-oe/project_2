@@ -24,7 +24,7 @@ pipeline {
                 sh '''
                 echo 'Setup..'
                 python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
-                . ${VIRTUAL_ENV}/bin/activateó
+                . ${VIRTUAL_ENV}/bin/activate
                 '''
             }
         }
