@@ -33,9 +33,9 @@ pipeline {
             steps {
                 sh '''
                 echo 'Installing..'
-                env/bin/python -m pip install --upgrade pip
-                env/bin/python install -r requirements.txt 
-                env/bin/python install pytest
+                env/bin/python3 -m pip install --upgrade pip
+                env/bin/python3 install -r requirements.txt 
+                env/bin/python3 install pytest
                 '''
             }
         }
