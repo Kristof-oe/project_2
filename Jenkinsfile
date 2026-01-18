@@ -2,11 +2,12 @@ pipeline {
     agent {
         docker {
             image 'python:3.11-slim'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
-    } 
+    }
 
     environment {
-        PYTHON_VERSION ="3.9"
+        PYTHON_VERSION ="3.10"
         VIRTUAL_ENV ="env"
         DOCKER_USERNAME="kris200036"
         DOCKERHUB_REPO="project_2"
