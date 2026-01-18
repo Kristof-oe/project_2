@@ -25,17 +25,9 @@ pipeline {
                 echo 'Setup..'
                 python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
                 . ${VIRTUAL_ENV}/bin/activate
-                '''
-            }
-        }
-
-        stage('Install_Dependencies') {
-            steps {
-                sh '''
-                echo 'Installing..'
-                env/bin/python3 -m pip install --upgrade pip
-                env/bin/python3 install -r requirements.txt 
-                env/bin/python3 install pytest
+                pip -m pip install --upgrade pip
+                pip install -r requirements.txt 
+                pip install pytest
                 '''
             }
         }
