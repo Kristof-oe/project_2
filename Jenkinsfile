@@ -37,7 +37,7 @@ pipeline {
                 sh '''
                 echo 'Testing..'
                 export PYTHONPATH=$PWD
-                pytest -v
+                env/bin/python -m pytest -v
                 '''
             }
         }
