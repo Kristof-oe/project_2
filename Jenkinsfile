@@ -84,7 +84,7 @@ pipeline {
 
         stage('Login_Docker'){
             environment{
-                DOCKER_HUB = credentials('docker-hub-creds')
+                DOCKER_HUB = credentials('DOCKER_HUB')
             }
             steps {
                 echo 'Login....'
@@ -159,7 +159,6 @@ pipeline {
             always {
                 script{
                     try {
-
                         sh '''
                         docker logout
                         '''
