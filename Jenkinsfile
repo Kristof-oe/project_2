@@ -24,7 +24,7 @@ pipeline {
                 sh '''
                 echo 'Setup..'
                 python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
-                source ${VIRTUAL_ENV}/bin/activate
+                . ${VIRTUAL_ENV}/bin/activate
                 '''
             }
         }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Installing..'
-                python -m pip install --upgrade pip
+                python3 -m pip install --upgrade pip
                 pip install -r requirements.txt 
                 pip install pytest
                 '''
