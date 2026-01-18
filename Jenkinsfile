@@ -23,6 +23,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Setup..'
+                python --version
                 python -m venv ${VIRTUAL_ENV}
                 source ${VIRTUAL_ENV}/bin/activate
                 '''
