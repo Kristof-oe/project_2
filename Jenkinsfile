@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PYTHON_VERSION ="3"
+        PYTHON_VERSION ="3.10"
         VIRTUAL_ENV ="env"
         DOCKER_USERNAME="kris200036"
         DOCKERHUB_REPO="project_2"
