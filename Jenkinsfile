@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'python:3.11-slim'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     } 
 
@@ -28,7 +27,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Setup..'
-                python -m venv ${VIRTUAL_ENV}
+                python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
                 source ${VIRTUAL_ENV}/bin/activate
                 '''
             }
