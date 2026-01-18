@@ -23,8 +23,8 @@ pipeline {
             steps {
                 sh '''
                 echo 'Setup..'
-                apt-get update
-                apt-get install -y python3 python3-venv
+                sudo apt-get update
+                sudo apt-get install -y python3 python3-venv
                 python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
                 source ${VIRTUAL_ENV}/bin/activate
                 '''
