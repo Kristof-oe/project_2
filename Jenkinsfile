@@ -25,9 +25,9 @@ pipeline {
                 echo 'Setup..'
                 python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
                 . ${VIRTUAL_ENV}/bin/activate
-                pip -m pip install --upgrade pip
-                pip install -r requirements.txt 
-                pip install pytest
+                env/bin/python -m pip install --upgrade pip
+                env/bin/pip install -r requirements.txt 
+                env/bin/pip install pytest
                 '''
             }
         }
