@@ -158,9 +158,15 @@ pipeline {
     post {
             always {
                 script{
+                    try {
+
                         sh '''
                         docker logout
                         '''
+                    } catch (err) {
+                        echo 'Docker login has been skipped'
+                    }
+                       
                 }
             
             }
