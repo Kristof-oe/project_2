@@ -31,6 +31,13 @@ pipeline {
                 '''
             }
         }
+        stage ("Docker container remove") {
+            steps {
+                sh '''
+                docker container prune
+                '''
+            }
+        }
 
         stage('Test_Unit') {
             steps {
