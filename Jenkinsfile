@@ -61,7 +61,7 @@ pipeline {
                 sh '''
                 echo 'Testing..'
                 docker run -d --name localtest -p 8000:8000 localtest:test
-                docker logs localtest
+                sleep 10
                 curl -f http://localhost:8000/health
                 '''
             }
