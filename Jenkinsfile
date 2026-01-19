@@ -46,7 +46,7 @@ pipeline {
         stage('Build_Local') {
             steps {
                 script {
-                    def img= docker.build('localhost:test')
+                    def img = docker.build('localtest:test')
 
                 } 
                 // echo 'Building..'
@@ -60,7 +60,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Testing..'
-                docker run -d -name localtest -p 8000:8000 localtest:test
+                docker run -d --name localtest -p 8000:8000 localtest:test
                 docker logs localtest
                 curl -f http://localhost:8000/health
                 '''
