@@ -34,7 +34,8 @@ pipeline {
         stage ("Docker container and image remove") {
             steps {
                 sh '''
-                docker system prune -a -y
+                docker rmi -a
+                docker 
                 '''
             }
         }
@@ -67,7 +68,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Testing..'
-                docker run -d --name localtest -p 8000:8000 localtest:test
+                docker run -d --network host --name localtest localtest:test
                 sleep 10
                 curl -f http://localhost:8000/health
                 '''
