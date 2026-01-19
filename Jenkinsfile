@@ -34,7 +34,7 @@ pipeline {
         stage ("Docker container and image remove") {
             steps {
                 sh '''
-                docker system prune -a
+                docker system prune -a -y
                 '''
             }
         }
