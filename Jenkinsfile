@@ -47,6 +47,8 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh '''
+                sudo systemctl status docker
+                sudo systemctl enable docker 
                 docker build . -t localtest:test
                 '''
             }
