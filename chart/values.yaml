@@ -13,7 +13,7 @@ postgresql:
   auth:
     password: admin
     username: admin
-    database: postgre
+    database: postgres
   primary:
     persistence:
       enabled: true

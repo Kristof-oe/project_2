@@ -16,5 +16,3 @@ class TaskResponse(SQLModel):
     task_id: int
     status: str
     task_data: str
-
-

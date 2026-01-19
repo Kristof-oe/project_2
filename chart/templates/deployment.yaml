@@ -18,25 +18,33 @@ spec:
         ports:
         - containerPort: {{ .Values.service.targetport }}
         env:
-          - name: POSTGRES_HOST
-            value: track-processing-postgresql
+          # - name: POSTGRES_HOST
+          #   value: track-processing-postgresql
 
-          - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: db
-                  key: postgresql-database
+          # - name: POSTGRES_DB
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: track-processing-postgresql
+          #       key: postgresql-database
 
-          - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: user
-                  key: postgresql-username
+          # - name: POSTGRES_USER
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: track-processing-postgresql
+          #       key: postgresql-username
 
-           - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: password
-                  key: postgresql-password
+          #  - name: POSTGRES_PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: track-processing-postgresql
+          #       key: postgresql-password
+
+            - name: DATABASE_URL
+              value: >-
+              postgresql://{{ .Values.postgresql.auth.username }}:
+              {{ .Values.postgresql.auth.password }}@
+              track-processing-postgresql:5432/
+              {{ .Values.postgresql.auth.database }}
+          
 
             
