@@ -62,7 +62,7 @@ pipeline {
                 echo 'Testing..'
                 docker run -d --network host localtest:test
                 sleep 5
-                curl http://localhost:8000/health
+                curl -f http://localhost:8000/health
                 '''
             }
         }
