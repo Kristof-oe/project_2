@@ -47,9 +47,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh '''
-                systemctl status docker
-                systemctl enable docker 
-                docker build . -t localtest:test
+                docker build -t localtest:test .
                 '''
             }
         }
