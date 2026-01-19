@@ -31,10 +31,10 @@ pipeline {
                 '''
             }
         }
-        stage ("Docker container remove") {
+        stage ("Docker container and image remove") {
             steps {
                 sh '''
-                docker container prune
+                docker system prune -a
                 '''
             }
         }
