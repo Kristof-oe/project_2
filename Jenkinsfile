@@ -45,10 +45,14 @@ pipeline {
 
         stage('Build_Local') {
             steps {
-                echo 'Building..'
-                sh '''
-                docker build -t localtest:test .
-                '''
+                script {
+                    def img= docker.build('localhost:test')
+
+                } 
+                // echo 'Building..'
+                // sh '''
+                // docker build . -t localtest:test
+                // '''
             }
         }
 
