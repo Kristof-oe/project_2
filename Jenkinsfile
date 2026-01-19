@@ -31,14 +31,6 @@ pipeline {
                 '''
             }
         }
-        stage ("Docker container and image remove") {
-            steps {
-                sh '''
-                docker rmi -a
-                docker 
-                '''
-            }
-        }
 
         stage('Test_Unit') {
             steps {
