@@ -157,9 +157,9 @@ pipeline {
                     try {
                         sh '''
                         docker logout
-                        docker stop track_test
-                        docker rm track_test
-                        docker rmi localtest:test
+                        // docker stop track_test
+                        // docker rm track_test
+                        // docker rmi localtest:test
                         '''
                     } catch (err) {
                         echo 'Docker login has been skipped'
