@@ -60,7 +60,7 @@ pipeline {
             steps { 
                 sh '''
                 echo 'Testing..'
-                docker run -d --name track_test -p 8000:8000 localtest:test
+                docker run -d --name track_test --network host localtest:test
                 sleep 5
                 curl -f http://localhost:8000/health
                 '''
@@ -71,8 +71,9 @@ pipeline {
             steps {
                 sh '''
                 echo 'Cleanup..'
-                docker stop localtest
-                docker rm localtest
+                docker stop track_test
+                docker rm track_test
+                docker rmi localtest:test
                 '''
             }
         }
