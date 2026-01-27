@@ -60,10 +60,17 @@ pipeline {
             steps { 
                 sh '''
                 echo 'Testing..'
-                docker network create testnet
+                docker network create testnet || true
                 docker run -d --name track_test --network testnet localtest:test
                 sleep 5
-                docker run --rm --network testnet curlimages/curl curl -f http://localhost:8000/health
+
+                for i in {1..5}; do
+                    if docker run --rm --network testnet curlimages/curl curl -f http://track_test:8000/health; then
+                    echo "Service is on"
+                    break
+                    fi
+                    sleep 1
+                done
                 '''
             }
         }
@@ -161,6 +168,7 @@ pipeline {
                         // docker stop track_test
                         // docker rm track_test
                         // docker rmi localtest:test
+                        // docker rm network testnet
                         '''
                     } catch (err) {
                         echo 'Docker login has been skipped'
