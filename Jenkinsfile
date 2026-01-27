@@ -57,7 +57,7 @@ pipeline {
         }
 
         stage('Smoke_Test_Local') {
-            steps {
+            steps { 
                 sh '''
                 echo 'Testing..'
                 docker run -d --network host localtest:test
