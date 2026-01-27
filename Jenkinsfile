@@ -60,7 +60,7 @@ pipeline {
             steps { 
                 sh '''
                 echo 'Testing..'
-                docker run -d --network host localtest:test
+                docker run -d --name track_test -p 8000:8000 localtest:test
                 sleep 5
                 curl -f http://localhost:8000/health
                 '''
