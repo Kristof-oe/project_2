@@ -34,7 +34,7 @@ pipeline {
 
         stage('Test_Unit') {
             steps {
-                sh '''
+                sh ''' 
                 echo 'Testing..'
                 export PYTHONPATH=$PWD
                 env/bin/python -m pytest -v
