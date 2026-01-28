@@ -60,6 +60,7 @@ pipeline {
             steps { 
                 sh '''
                 echo 'Testing..'
+
                 docker network create testnet || true
                 docker run -d --name track_test --network testnet localtest:test
                 sleep 5
@@ -82,6 +83,8 @@ pipeline {
                 docker stop track_test
                 docker rm track_test
                 docker rmi localtest:test
+                docker rm network testne
+                docker rmi curlimages/curl:latest
                 '''
             }
         }
