@@ -3,7 +3,7 @@ name: track-processing
 description: A Helm chart for Kubernetes
 dependencies:
   - name: postgresql
-    version: latest
+    version: "14"
     repository: https://charts.bitnami.com/bitnami
 
 # A chart can be either an 'application' or a 'library' chart.
