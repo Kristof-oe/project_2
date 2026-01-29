@@ -19,8 +19,8 @@ postgresql:
       enabled: true
 
 image:
-  repository: ""
-  tag: ""
+  repository: "kris200036"
+  tag: "project_2"
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.

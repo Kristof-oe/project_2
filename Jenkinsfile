@@ -175,9 +175,7 @@ pipeline {
                         '''
                     } catch (err) {
                         echo 'Docker login has been skipped'
-                    }
-                    docker 
-                       
+                    }  
                 }
             
             }
