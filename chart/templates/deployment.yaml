@@ -42,9 +42,7 @@ spec:
             - name: DATABASE_URL
               value: >-
               postgresql://{{ .Values.postgresql.auth.username }}:
-              {{ .Values.postgresql.auth.password }}@
-              track-processing-postgresql:5432/
-              {{ .Values.postgresql.auth.database }}
+              {{ .Values.postgresql.auth.password }}@track-processing-postgresql:5432/{{ .Values.postgresql.auth.database }}
           
 
             
