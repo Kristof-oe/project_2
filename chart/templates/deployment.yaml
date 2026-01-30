@@ -39,8 +39,8 @@ spec:
           #       name: track-processing-postgresql
           #       key: postgresql-password
 
-            - name: DATABASE_URL
-              value: >-
+          - name: DATABASE_URL
+            value: >-
               postgresql://{{ .Values.postgresql.auth.username }}:
               {{ .Values.postgresql.auth.password }}@track-processing-postgresql:5432/{{ .Values.postgresql.auth.database }}
 
