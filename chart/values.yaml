@@ -15,9 +15,9 @@ postgresql:
     username: admin
     database: postgres
   image:
-    registry: docker.io
-    repository: bitnami/postgresql
-    tag: "15"
+    # registry: docker.io
+    # repository: bitnami/postgresql
+    tag: "16"
 
 image:
   repository: "kris200036"
