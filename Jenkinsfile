@@ -83,7 +83,6 @@ pipeline {
                 docker stop track_test
                 docker rm track_test
                 docker rmi localtest:test
-                docker rm network testnet
                 docker rmi curlimages/curl:latest
                 '''
             }
