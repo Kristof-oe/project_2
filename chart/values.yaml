@@ -20,8 +20,8 @@ postgresql:
     tag: "latest"
 
 image:
-  repository: "kris200036"
-  tag: "project_2"
+  repository: "kris200036/project_2"
+  tag: "latest"
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
