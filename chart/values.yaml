@@ -17,7 +17,7 @@ postgresql:
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: "16"
+    tag: "15"
 
 image:
   repository: "kris200036"
