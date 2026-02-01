@@ -129,14 +129,7 @@ pipeline {
         //         '''
         //     }
         // }
-        stage('Monitor'){
-            steps{
-                echo 'Monitor...'
-                sh'''
-                    chmod +x prometheus.sh
-                '''
-            }
-        }
+        
         // stage('Debug') {
         //     steps{
         //         echo 'Debug...'
