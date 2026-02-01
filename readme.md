@@ -10,4 +10,19 @@ This app itself is simply focusing on CI/CD pipeline and infrastructure automati
 - **Kubernetes (kind)** – Local Kubernetes cluster for deployment and testing
 - **PostgreSQL** - Used bitnami for DB setting for FastApi
 - **Prometheus/Grafana** - Monitoring http for more security
-- **ArgoCD** - Pushed github automatically refresh the state of kubernetes and making CD piplines
+- **ArgoCD** - Pushed github automatically refresh the state of kubernetes and making CD orchestration
+
+***Github Push --> Jenkins pipeline (CI) and ArgoCD (CD)***
+
+-  **Jenkins**
+    -  Clone
+    -  Setup env
+    -  Test unit
+    -  Build local
+    -  Smoke test locally
+    -  Cleanup
+    -  Login docker
+    -  Push image
+
+-   **ArgoCD**
+    -   Deploy fastapi postgresql and grafana/prometheus by helm

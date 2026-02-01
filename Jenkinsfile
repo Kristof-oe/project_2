@@ -110,47 +110,6 @@ pipeline {
             }
         }
 
-        //  stage('Build') {
-        //     steps {
-        //         echo 'Build....'
-        //         sh '''
-        //         docker pull ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
-        //         kind load docker-image ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
-        //         '''
-        //     }
-        // }
-        // stage('Deploy'){
-        //     steps{
-        //         echo 'Deploy...'
-        //         sh'''
-        //         helm upgrade --install track-processing chart/ \
-        //         --set image.repository=${DOCKER_USERNAME}/${DOCKERHUB_REPO} \
-        //         --set image.tag=latest
-        //         '''
-        //     }
-        // }
-
-        // stage('Debug') {
-        //     steps{
-        //         echo 'Debug...'
-        //         sh'''
-        //         sleep 5
-        //         kubectl get deployment track-processing
-        //         kubectl get service track-processing
-        //         '''
-        //     }
-        // }
-        // stage('Test_Helm') {
-        //     steps{
-        //         echo 'Tesing...'
-        //         sh'''
-        //         kubectl port-forward svc/track-processing 8000:80 & PORT_FORWARD_PID=$!
-        //         sleep 10
-        //         curl -f http://localhost:8000/health
-        //         kill $PORT_FORWARD_PID
-        //         '''
-        //     }
-        // }
      
     }
 
