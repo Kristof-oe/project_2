@@ -104,6 +104,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 sh '''
+                cat requirements.txt
                 docker build . -t ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
                 docker push ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:latest
                 '''
@@ -129,7 +130,7 @@ pipeline {
         //         '''
         //     }
         // }
-        
+
         // stage('Debug') {
         //     steps{
         //         echo 'Debug...'
